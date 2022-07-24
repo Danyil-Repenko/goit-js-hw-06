@@ -1,14 +1,25 @@
 const form = document.querySelector('.login-form');
-const mailInput = document.querySelector('input[name="email"]');
-const passwordInput = document.querySelector('input[name="password"]');
-const submitButton = document.querySelector('button[type="submit"]');
 
-
-form.addEventListener('submit', (event) => {
+const onFormSubmited = (event) => {
     event.preventDefault();
-    console.log(event.currentTarget.elements);
-    if (event.currentTarget.elements.value === '') {
+
+    const formElements = event.currentTarget.elements;
+
+    if (formElements.email.value === '' || formElements.password.value === '') {
         alert('Всі поля повинні бути заповнені!');
+        return;
     }
-})
+
+    const submitedValues = {
+        [formElements.email.name]: formElements.email.value,
+        [formElements.password.name]: formElements.password.value,
+    }
+
+    console.log(submitedValues);
+
+    event.currentTarget.reset();
+};
+
+form.addEventListener('submit', onFormSubmited);
+
 
